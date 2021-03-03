@@ -6,6 +6,7 @@ public abstract class State
     protected MinerManager MinerManager;
     protected ExplorerManager ExplorerManager;
 
+
     public State(MinerManager minerManager )
     {
         MinerManager = minerManager;

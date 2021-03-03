@@ -11,6 +11,10 @@ public class MarkingState : State
 
     public override IEnumerator Start()
     {
+        //explorer.MoveTo(spot)
+        //setMinePOS
+        ExplorerManager.SetState(new ExplorerNS.PatrolState(ExplorerManager));
+
         return base.Start();
     }
 

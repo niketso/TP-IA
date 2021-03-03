@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    [SerializeField] int maxSpots = 0;
+    private Mine [] mines;
+
+    private void Start()
+    {
+       
+    }
     public void SpawnMine()
     {
         //getmine

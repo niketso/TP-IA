@@ -5,9 +5,8 @@ using ExplorerNS;
 
 public class ExplorerManager : StateMachine
 {
-    [SerializeField] public Miner miner;
-    [SerializeField] public HQ hq;
-    [SerializeField] public Mine[] mines;
+    [SerializeField] public Explorer explorer;
+   
     public Mine currentMine;
 
     private void Start()

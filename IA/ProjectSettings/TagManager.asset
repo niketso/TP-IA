@@ -16,10 +16,10 @@ TagManager:
   - PostProcessing
   - Terrain
   - Obstacle
-  - 
-  - 
-  - 
-  - 
+  - Spot
+  - Mine
+  - MineD
+  - SpotD
   - 
   - 
   - 

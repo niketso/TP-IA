@@ -24,7 +24,8 @@ namespace ExplorerNS
             t.Update(Time.deltaTime);
             if (!t.IsRunning)
             {
-                ExplorerManager.SetState(new PatrolState(ExplorerManager));
+                Debug.Log("termino");
+                ExplorerManager.SetState(new ExplorerNS.PatrolState(ExplorerManager));
             }
 
             return base.Update();
