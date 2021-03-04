@@ -10,7 +10,7 @@ public class Miner : StateMachine
     [SerializeField] private int capacity = 0;
     //How many per action it can mine.
     [SerializeField] private int efficiency = 0;
-    [SerializeField] GameObject MineDetectorGO;
+    [SerializeField] GameObject MineDetectorGO = null;
     public int currentGold = 0;
     private float speed = 1f;
     private float fov = 45f;

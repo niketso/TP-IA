@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2578382840602731393}
   - component: {fileID: 2578382840602731392}
   - component: {fileID: 127086169}
+  - component: {fileID: 5614295069283234142}
   m_Layer: 0
   m_Name: Miner
   m_TagString: Untagged
@@ -113,7 +114,22 @@ MonoBehaviour:
     m_Bits: 4096
   capacity: 10
   efficiency: 1
+  MineDetectorGO: {fileID: 2783172751574612561}
   currentGold: 0
+--- !u!114 &5614295069283234142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578382840602731395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f74e002b7aabef9489f0f6a521fdb6a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  miner: {fileID: 127086169}
+  currentMine: {fileID: 0}
 --- !u!1 &2783172751574612561
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,6 +141,7 @@ GameObject:
   - component: {fileID: 4492361716568188913}
   - component: {fileID: 2764446926353632125}
   - component: {fileID: 1937825480801782595}
+  - component: {fileID: 2254175728061011004}
   m_Layer: 13
   m_Name: Radius
   m_TagString: Untagged
@@ -168,3 +185,15 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &2254175728061011004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2783172751574612561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffc7453ea47d3f34ea4f3d1f7bbb3d77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

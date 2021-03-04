@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1788989145847420426}
   - component: {fileID: 1788989145847420427}
   - component: {fileID: 2143922282}
+  - component: {fileID: -2158559365132118985}
   m_Layer: 0
   m_Name: Explorer
   m_TagString: Untagged
@@ -111,6 +112,21 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 2048
+  SpotDetectorGO: {fileID: 2876312149759278355}
+--- !u!114 &-2158559365132118985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788989145847420428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a41644a8898b7014aa903c7b44d4ece9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explorer: {fileID: 2143922282}
+  currentMine: {fileID: 0}
 --- !u!1 &2876312149759278355
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,6 +138,7 @@ GameObject:
   - component: {fileID: 6451250307636735812}
   - component: {fileID: 1007823256329570144}
   - component: {fileID: 597844315558245266}
+  - component: {fileID: 9091524084354672116}
   m_Layer: 14
   m_Name: Radius
   m_TagString: Untagged
@@ -165,3 +182,15 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &9091524084354672116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2876312149759278355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b3d27771dc87a4896c5ed1d2aa1f46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

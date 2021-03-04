@@ -55,7 +55,7 @@ public class PathNodeGenerator
                     }
 
 
-                    Debug.Log(hit.transform.gameObject.layer);
+                    //Debug.Log(hit.transform.gameObject.layer);
 
                     if (pathNode != null)
                     {

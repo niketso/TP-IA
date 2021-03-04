@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] int maxSpots = 0;
+    [SerializeField] private int maxSpots = 0;
     private Mine [] mines;
 
     private void Start()

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Explorer : MonoBehaviour
 {
     [SerializeField] private LayerMask layerMask = 0;
-    [SerializeField] GameObject SpotDetectorGO;
+    [SerializeField] GameObject SpotDetectorGO = null;
     private float speed = 1f;
     private float fov = 45f;
     private float viewDistance = 10f;

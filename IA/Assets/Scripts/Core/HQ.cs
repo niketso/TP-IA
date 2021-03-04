@@ -23,12 +23,13 @@ public class HQ : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public int GetCurrentGold()
     {
-        if (other.CompareTag("Player"))
-        {
-            //Debug.Log("Deposit::OTE. Arrived to Deposit");
-           // minerManager.SetState(new DepositingGoldState(minerManager));
-        }
+        return currentGold;
+    }
+
+    public void ExtractGold(int value)
+    {
+        currentGold -= value;
     }
 }
