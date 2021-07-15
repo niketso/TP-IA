@@ -24,7 +24,7 @@ namespace MinerNS
             t.Update(Time.deltaTime);
             if (!t.IsRunning)
             {
-                Debug.Log("termino");
+                
                 MinerManager.SetState(new MinerNS.PatrolState(MinerManager));
             }
             return base.Update();

@@ -12,7 +12,12 @@ public class MarkingState : State
     public override IEnumerator Start()
     {
         //explorer.MoveTo(spot)
-        //setMinePOS
+        //ExplorerManager.explorer.StopMoving();
+       Vector3 destination =  ExplorerManager.explorer.lastSpot.transform.position;
+       // ExplorerManager.explorer.SetDestination(destination);
+        Spawner.Instance.ResetSpot(ExplorerManager.explorer.lastSpot);
+        Spawner.Instance.CreateMine(destination);
+
         ExplorerManager.SetState(new ExplorerNS.PatrolState(ExplorerManager));
 
         return base.Start();

@@ -11,6 +11,7 @@ public class SpotDetector : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //spot 11
+        
         if (other.gameObject.layer == 11)
         {
             if (checkCollisionExplorer != null)

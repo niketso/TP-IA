@@ -31,7 +31,7 @@ public class PathfindingManager : MonoBehaviour
     {
         instance = this;
 
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
@@ -96,7 +96,42 @@ public class PathfindingManager : MonoBehaviour
 
     void FillPath(PathNode destinationNode, PathNode originNode, out Stack<PathNode> path)
     {
+        PathNode castNode = destinationNode;
+        PathNode auxNode = originNode;
+        bool pathFinished = false;
         path = new Stack<PathNode>();
+
+        Vector3 diff;
+        PathNode node = destinationNode;
+
+        while (node != null)
+        {
+            if (node.Parent != null)
+                node.Parent.Child = node;
+
+            node = node.Parent;
+        }
+
+        while (!pathFinished)
+        {
+            diff = (castNode.Position - auxNode.Position) + Vector3.up * 0.5f;
+            if (auxNode.Child != castNode && Physics.Raycast(castNode.Position + Vector3.up * 0.5f, diff.normalized, diff.magnitude))
+            {
+                auxNode = auxNode.Child;
+            }
+            else
+            {
+                path.Push(castNode);
+                castNode = auxNode;
+                if (castNode == originNode)
+                {
+                    path.Push(castNode);
+                    pathFinished = true;
+                }
+                else
+                    auxNode = originNode;
+            }
+        }
 
     }
     

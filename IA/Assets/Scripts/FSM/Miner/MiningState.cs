@@ -12,20 +12,24 @@ public class MiningState : State
     public override IEnumerator Start()
     {
 
-        MinerManager.miner.Mine(MinerManager.currentMine);
+        //MinerManager.miner.StopMoving();
+        //Mine mine = MinerManager.miner.lastMine;
+       // MinerManager.miner.SetDestination(mine.transform.position);
+       // MinerManager.miner.Mine(mine);
 
         return base.Start();
     }
 
     public override IEnumerator Update()
     {
-        if (!MinerManager.miner.HasCapacity() || !MinerManager.currentMine.IsActive())
+        Debug.Log("MiningStateMiner::Update()");
+        if (!MinerManager.miner.CanMine(MinerManager.miner.lastMine) || !MinerManager.miner.HasCapacity() || !MinerManager.miner.lastMine.IsActive())
         {
             MinerManager.SetState(new ReturningState(MinerManager));
         }
         else
         {
-            MinerManager.miner.Mine(MinerManager.currentMine);
+            MinerManager.miner.Mine(MinerManager.miner.lastMine);
         }
 
         return base.Update();

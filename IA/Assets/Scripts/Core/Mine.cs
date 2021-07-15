@@ -5,7 +5,8 @@ using UnityEngine;
 public class Mine : MonoBehaviour
 {
     [SerializeField] private int capacity = 0;
-    [SerializeField] public MinerManager minerManager;
+    public bool isEmpty = false;
+    
 
     private void Update()
     {
@@ -23,10 +24,15 @@ public class Mine : MonoBehaviour
         }
         else
         {
+            isEmpty = true;
             return false;
         }
     }
 
+    public bool IsEmpty()
+    {
+        return isEmpty;
+    }
     public void DeactivateMine()
     {
         gameObject.SetActive(false);

@@ -11,18 +11,20 @@ public class Miner : StateMachine
     //How many per action it can mine.
     [SerializeField] private int efficiency = 0;
     [SerializeField] GameObject MineDetectorGO = null;
+    [SerializeField] Movement movement = null;
     public int currentGold = 0;
-    private float speed = 1f;
     private float fov = 45f;
     private float viewDistance = 10f;
     private MineDetector mineDetector;
-    private bool hasMine;
+    private bool hasMine = false;
+    public Mine lastMine = null;
 
 
     private void Start()
     {
         mineDetector = GetComponentInChildren<MineDetector>();
         mineDetector.checkCollisionMiner += OnCollisionDetect;
+
     }
 
     public bool CanMine(Mine currentMine)
@@ -30,23 +32,28 @@ public class Miner : StateMachine
 
         if (currentMine)
         {
-            //Debug.Log("Miner::CanMine(); true");
+            Debug.Log("Miner::CanMine(); true");
             return true;
         }
 
-        // Debug.Log("Miner::CanMine(); false");
+         Debug.Log("Miner::CanMine(); false");
         return false;
 
     }
 
     public void Mine(Mine currentMine)
     {
-        if (HasCapacity() || currentMine.IsActive())
+        if (HasCapacity()&& currentMine.IsActive())
         {
             if (currentMine.ExtractGold(efficiency))
             {
                 currentGold += efficiency;
             }
+            if (!currentMine.IsActive() || !currentMine.IsEmpty())
+            {
+                this.lastMine = null;
+            }
+            
         }
     }
 
@@ -54,12 +61,12 @@ public class Miner : StateMachine
     {
         if (capacity > currentGold)
         {
-            //Debug.Log("Miner::HasCapacity().Can carry.");
+            Debug.Log("Miner::HasCapacity().Can carry.");
             return true;
         }
         else
         {
-            //Debug.Log("Miner::HasCapacity().Already full.");
+            Debug.Log("Miner::HasCapacity().Already full.");
             return false;
         }
     }
@@ -69,12 +76,12 @@ public class Miner : StateMachine
         {
             if (hq.DepositGold(this))
             {
-                //Debug.Log("Miner::Deposit. Depositing");
+                Debug.Log("Miner::Deposit. Depositing");
                 return true;
             }
             else
             {
-                //Debug.Log("Miner::Deposit. Couldn't deposit.");
+                Debug.Log("Miner::Deposit. Couldn't deposit.");
                 return false;
             }
 
@@ -84,12 +91,6 @@ public class Miner : StateMachine
             return false;
         }
 
-    }
-
-    public void SetDestination(Vector3 destination)
-    {
-        float maxDistanceDelta = 0;
-        transform.position = Vector3.MoveTowards(transform.position, destination, maxDistanceDelta);
     }
 
     public void OnCollisionDetect(GameObject GO)
@@ -102,12 +103,22 @@ public class Miner : StateMachine
             RaycastHit hit;
             if (Physics.Raycast(transform.position, direction.normalized, out hit, viewDistance, layerMask))
             {
-                if (hit.transform.gameObject.layer == 11)
+                if (hit.transform.gameObject.layer == 12)
                 {
-                    hasMine = true;
                     MineDetection(false);
+                    lastMine = hit.transform.gameObject.GetComponent<Mine>();
+                    hasMine = true;
+                    StopMoving();
                 }
             }
+            else
+            {
+                Debug.Log("OnCollisionDetect(),NO ES POR AHI");
+            }
+        }
+        else
+        {
+            Debug.Log("OnCollisionDetect(),Wrong Angle");
         }
     }
 
@@ -115,8 +126,28 @@ public class Miner : StateMachine
     {
         return hasMine;
     }
+
     public void MineDetection(bool active)
     {
         MineDetectorGO.SetActive(active);
+    }
+    public void SetDestination(Vector3 destination)
+    {
+        movement.SetDestination(destination);
+    }
+
+    public void StopMoving()
+    {
+        movement.StopMoving();
+    }
+
+    public bool HasArrived()
+    {
+        return movement.HasArrived();
+    }
+
+    public void SetState(bool state)
+    {
+        movement.SetState(state);
     }
 }

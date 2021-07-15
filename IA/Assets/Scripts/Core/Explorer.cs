@@ -7,11 +7,12 @@ public class Explorer : MonoBehaviour
 {
     [SerializeField] private LayerMask layerMask = 0;
     [SerializeField] GameObject SpotDetectorGO = null;
-    private float speed = 1f;
+    [SerializeField] Movement movement = null;
     private float fov = 45f;
     private float viewDistance = 10f;
     private bool hasSpot = false;
     private SpotDetector SpotDetector;
+    public GameObject lastSpot = null;
 
     private void Start()
     {
@@ -37,7 +38,9 @@ public class Explorer : MonoBehaviour
                 if (hit.transform.gameObject.layer == 11)
                 {
                     hasSpot = true;
-                    SpotDetection(false);
+                    lastSpot = hit.transform.gameObject;
+                    StopMoving();
+                    
                 } 
             }
         }
@@ -46,11 +49,30 @@ public class Explorer : MonoBehaviour
     public void SpotDetection(bool active)
     {
         SpotDetectorGO.SetActive(active);
+        
+    }
+    public void ResetSpot()
+    {
+        hasSpot = false;
     }
 
     public void SetDestination(Vector3 destination)
     {
-        float maxDistanceDelta = 0;
-        transform.position = Vector3.MoveTowards(transform.position, destination, maxDistanceDelta);
+        movement.SetDestination(destination);
+    }
+
+    public void StopMoving()
+    {
+        movement.StopMoving();
+    }
+
+    public bool HasArrived()
+    {
+        return movement.HasArrived();
+    }
+
+    public void SetState(bool state)
+    {
+        movement.SetState(state);
     }
 }

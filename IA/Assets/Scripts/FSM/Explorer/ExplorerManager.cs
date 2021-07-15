@@ -6,9 +6,7 @@ using ExplorerNS;
 public class ExplorerManager : StateMachine
 {
     [SerializeField] public Explorer explorer;
-   
-    public Mine currentMine;
-
+      
     private void Start()
     {
         SetState(new ExplorerNS.IdleState(this));

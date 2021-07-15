@@ -28,8 +28,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {       
-        CurrentGoldDisplay();
-       // currentGold = currentGold + hq.GetCurrentGold();
+        CurrentGoldDisplay();      
     }
 
     public void AddMiner()

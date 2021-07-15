@@ -23,8 +23,7 @@ namespace ExplorerNS
         {
             t.Update(Time.deltaTime);
             if (!t.IsRunning)
-            {
-                Debug.Log("termino");
+            {              
                 ExplorerManager.SetState(new ExplorerNS.PatrolState(ExplorerManager));
             }
 
