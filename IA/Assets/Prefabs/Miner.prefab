@@ -118,6 +118,7 @@ MonoBehaviour:
   MineDetectorGO: {fileID: 2783172751574612561}
   movement: {fileID: -2336048427536943081}
   currentGold: 0
+  isFull: 0
   lastMine: {fileID: 0}
 --- !u!114 &5614295069283234142
 MonoBehaviour:

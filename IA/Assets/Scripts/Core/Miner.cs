@@ -13,6 +13,7 @@ public class Miner : StateMachine
     [SerializeField] GameObject MineDetectorGO = null;
     [SerializeField] Movement movement = null;
     public int currentGold = 0;
+    public bool isFull = false;
     private float fov = 45f;
     private float viewDistance = 10f;
     private MineDetector mineDetector;
@@ -22,8 +23,9 @@ public class Miner : StateMachine
 
     private void Start()
     {
-        mineDetector = GetComponentInChildren<MineDetector>();
+        mineDetector = GetComponentInChildren<MineDetector>();        
         mineDetector.checkCollisionMiner += OnCollisionDetect;
+        
 
     }
 
@@ -43,17 +45,18 @@ public class Miner : StateMachine
 
     public void Mine(Mine currentMine)
     {
-        if (HasCapacity()&& currentMine.IsActive())
+        if ( currentMine.IsActive() && HasCapacity())
         {
             if (currentMine.ExtractGold(efficiency))
             {
                 currentGold += efficiency;
             }
-            if (!currentMine.IsActive() || !currentMine.IsEmpty())
+            if (currentMine.IsEmpty() || !currentMine.IsActive())
             {
-                this.lastMine = null;
+                Debug.Log("Miner::Mine().Empty Mine");
+                //this.lastMine = null;
             }
-            
+            Debug.Log("Miner::Mine()");
         }
     }
 
@@ -66,6 +69,7 @@ public class Miner : StateMachine
         }
         else
         {
+            isFull = true;
             Debug.Log("Miner::HasCapacity().Already full.");
             return false;
         }
@@ -106,9 +110,9 @@ public class Miner : StateMachine
                 if (hit.transform.gameObject.layer == 12)
                 {
                     MineDetection(false);
+                    StopMoving();
                     lastMine = hit.transform.gameObject.GetComponent<Mine>();
                     hasMine = true;
-                    StopMoving();
                 }
             }
             else
@@ -125,6 +129,10 @@ public class Miner : StateMachine
     public bool HasMine()
     {
         return hasMine;
+    }
+    public void SetHasMine(bool _Hasmine)
+    {
+        hasMine = _Hasmine;
     }
 
     public void MineDetection(bool active)

@@ -35,6 +35,7 @@ public class Mine : MonoBehaviour
     }
     public void DeactivateMine()
     {
+        Spawner.Instance.currentFlags--;
         gameObject.SetActive(false);
         Destroy(gameObject);
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    private float speed = 0.001f;
+    private float speed = 1f;
     public bool keepMoving = true;
     private bool arrived = false;
     Stack<PathNode> path;
@@ -52,8 +52,8 @@ public class Movement : MonoBehaviour
         Vector3 currentPos = transform.position;       
         transform.position = Vector3.MoveTowards(currentPos, destination, maxDistanceDelta);
         //dist = Vector3.Distance(transform.position, destination);
-        //maxDistanceDelta = speed * Time.deltaTime;        
-        //transform.position = destination;
+        maxDistanceDelta = speed * Time.deltaTime;        
+        transform.position = destination;
         
     }
 

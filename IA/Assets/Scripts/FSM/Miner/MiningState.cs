@@ -12,9 +12,11 @@ public class MiningState : State
     public override IEnumerator Start()
     {
 
-        //MinerManager.miner.StopMoving();
-        //Mine mine = MinerManager.miner.lastMine;
-       // MinerManager.miner.SetDestination(mine.transform.position);
+        MinerManager.miner.StopMoving();
+        if (MinerManager.miner.lastMine)
+        {
+            MinerManager.miner.SetDestination(MinerManager.miner.lastMine.transform.position);
+        }
        // MinerManager.miner.Mine(mine);
 
         return base.Start();
@@ -23,10 +25,10 @@ public class MiningState : State
     public override IEnumerator Update()
     {
         Debug.Log("MiningStateMiner::Update()");
-        if (!MinerManager.miner.CanMine(MinerManager.miner.lastMine) || !MinerManager.miner.HasCapacity() || !MinerManager.miner.lastMine.IsActive())
+        if (MinerManager.miner.isFull || !MinerManager.miner.CanMine(MinerManager.miner.lastMine) || !MinerManager.miner.HasCapacity() || !MinerManager.miner.lastMine.IsActive())
         {
             MinerManager.SetState(new ReturningState(MinerManager));
-        }
+        }       
         else
         {
             MinerManager.miner.Mine(MinerManager.miner.lastMine);

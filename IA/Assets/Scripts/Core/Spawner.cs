@@ -25,6 +25,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] GameObject spots = null;  
     [SerializeField] GameObject mines = null;
     private Vector3 spawnPosition = Vector3.zero;
+    public int currentFlags = 0;
 
     private void Awake()
     {
@@ -63,9 +64,17 @@ public class Spawner : MonoBehaviour
     }
 
     public void CreateMine(Vector3 position)
-    {        
-        Instantiate(minePrefab,position, Quaternion.identity, mines.transform);
-        Debug.Log("creo");
+    {
+        if (currentFlags < maxSpots)
+        {
+            Instantiate(minePrefab,position, Quaternion.identity, mines.transform);
+            currentFlags++;
+            Debug.Log("Spawner::CreateMine().Created");
+        }
+        else
+        {
+            Debug.Log("Spawner::CreateMine().MaxSpots reached");
+        }
     }
    
 }

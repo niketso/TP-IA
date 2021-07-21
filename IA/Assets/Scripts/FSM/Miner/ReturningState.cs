@@ -12,25 +12,51 @@ public class ReturningState : State
     public override IEnumerator Start()
     {
         Debug.Log("ReturningStateMiner::Start()");
-        //falta nueva situacion si es que no hay mas para minar. 
-        // MinerManager.miner.SetDestination(MinerManager.hq.transform.position);
-        //MinerManager.miner.DepositGold(MinerManager.hq);
+        
+        MinerManager.miner.SetDestination(MinerManager.hq.deployZone.transform.position);       
+        
+      
         return base.Start();
     }
 
     public override IEnumerator Update()
     {
-        if (/*!MinerManager.miner.lastMine.IsEmpty()*/true)
-        {
-            MinerManager.miner.DepositGold(MinerManager.hq);
-            MinerManager.SetState(new MiningState(MinerManager));
-        }
-        else
-        {
-            //MinerManager.SetState(new MiningState(MinerManager));
-            MinerManager.SetState(new MinerNS.PatrolState(MinerManager));
-        }
 
+        if (MinerManager.hq.CanDeposit(MinerManager.miner))
+        {
+            if (MinerManager.miner.isFull)
+            {
+                Debug.Log("ReturningStateMiner::Update() Miner Full");
+                //if (MinerManager.hq.CanDeposit())
+
+                MinerManager.miner.DepositGold(MinerManager.hq);
+
+                if (MinerManager.miner.lastMine == null)
+                {
+                    MinerManager.miner.SetHasMine(false);
+                    MinerManager.SetState(new MinerNS.PatrolState(MinerManager));
+                }
+                else
+                {
+                    MinerManager.SetState(new MiningState(MinerManager));
+                }
+
+            }
+            else if (MinerManager.miner.lastMine == null || MinerManager.miner.lastMine.IsEmpty())
+            {
+                Debug.Log("ReturningStateMiner::Update() volver a patrol");
+                if (MinerManager.miner.currentGold == 10)
+                {
+                    MinerManager.miner.DepositGold(MinerManager.hq);
+                }
+                MinerManager.miner.lastMine = null;
+                MinerManager.miner.SetHasMine(false);
+                MinerManager.SetState(new MinerNS.PatrolState(MinerManager));
+            }
+        }
+        
+        
+        Debug.Log("ReturningStateMiner::Update()");
         return base.Update();
     }
 }
